@@ -1,0 +1,4 @@
+#main task file
+- name: Run the redhat tasks
+  import_tasks: redhat.yml
+  when: ansible_facts['os_family']|lower == 'redhat'

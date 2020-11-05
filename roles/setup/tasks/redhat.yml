@@ -1,0 +1,17 @@
+#Install liberty and java
+
+- name: "Updating yum and installing java"
+  yum:
+    name: java-1.8.0-openjdk-devel
+    state: latest
+    update_cache: true
+  become: yes
+
+- name: "Copying liberty jar file to tmp folder"
+  copy:
+    src: ../files/wlp-base-all-20.0.0.11.jar
+    dest: /tmp
+    mode: 0755
+
+- name: "Installing liberty"
+  shell: java -jar /tmp/wlp-base-all-20.0.0.11.jar

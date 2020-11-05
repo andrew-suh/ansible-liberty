@@ -1,0 +1,5 @@
+#playbook for deploying liberty and the app
+- hosts: testing
+  roles:
+    - setup
+    - deploy

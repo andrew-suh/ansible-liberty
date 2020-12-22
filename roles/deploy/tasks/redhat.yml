@@ -1,2 +1,12 @@
 #app deployment tasks
 
+- name: "Git clone Liberty app"
+  git:
+    repo: 'https://github.com/OpenLiberty/sample-getting-started.git'
+    dest: /home/{user}/test
+    version: master
+
+- name: "Starting Maven app"
+  command: mvn liberty:dev
+  args:
+    chdir: /home/{user}/test/sample-getting-started 

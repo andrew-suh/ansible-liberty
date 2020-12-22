@@ -7,11 +7,38 @@
     update_cache: true
   become: yes
 
+- name: "Updating yum and installing git"
+  yum:
+    name: git
+    state: latest
+    update_cache: true
+  become: yes
+
 - name: "Copying liberty jar file to tmp folder"
   copy:
     src: ../files/wlp-base-all-20.0.0.11.jar
     dest: /tmp
     mode: 0755
+  become: yes
 
 - name: "Installing liberty"
   shell: java -jar /tmp/wlp-base-all-20.0.0.11.jar
+
+- name: "Copying Maven install file to tmp folder"
+  copy:
+    src: ../files/apache-maven-3.6.3-bin.tar.gz
+    dest: /tmp
+    mode: 0755
+  become: yes
+
+- name: "Unzipping Maven"
+  unarchive: 
+    src: /tmp/apache-maven-3.6.3-bin.tar.gz
+    dest: /tmp
+
+- name: " Moving Maven bins"
+  copy:
+    remote_src: yes
+    src: /tmp/apache-maven-3.6.3/bin
+    dest: /usr/local/bin
+  become: yes
